@@ -26,14 +26,16 @@
 	<script>
 		function calculate()
 		{
-			var userHashrate = document.getElementById("hashrate");
-			var netDiff = document.getElementById("diff");
+			$.get("https://openchains.info/api/v1/gatecoin/difficulty", function(data)
+			{
+  				var userHashrate = document.getElementById("hashrate");
 
-			var gatePerDay = Math.round((userHashrate.value * 50 * 86400 * 1000000 / (netDiff.value * 4294967296)) * 100 + Number.EPSILON) / 100;
+				var gatePerDay = Math.round((userHashrate.value * 50 * 86400 * 1000000 / (data * 4294967296)) * 100 + Number.EPSILON) / 100;
 
-			document.getElementById("_gatePerDay").innerHTML = gatePerDay;
-			document.getElementById("_gatePerWeek").innerHTML = Math.round(gatePerDay * 7 * 100 + Number.EPSILON) / 100;
-			document.getElementById("_gatePerMonth").innerHTML = Math.round(gatePerDay * 30 * 100 + Number.EPSILON) / 100;
+				document.getElementById("_gatePerDay").innerHTML = gatePerDay;
+				document.getElementById("_gatePerWeek").innerHTML = Math.round(gatePerDay * 7 * 100 + Number.EPSILON) / 100;
+				document.getElementById("_gatePerMonth").innerHTML = Math.round(gatePerDay * 30 * 100 + Number.EPSILON) / 100;
+			});
 		}
 	</script>
 
@@ -46,9 +48,6 @@
   		<div class="login-form">
     		<h3>Hashrate (MH/s):</h3>
     		<input type="text" placeholder="300" id="hashrate" /><br>
-
-    		<h3>Net Difficulty:</h3>
-    		<input type="text" placeholder="79273" id="diff" /><br>
 
     		<input type="button" value="Calculate" onclick="calculate();"/>
     		<br> <br> <br> <br>
