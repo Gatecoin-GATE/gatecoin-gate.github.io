@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gatecoin Mining Calculator</title>
+
+	<link href='https://fonts.googleapis.com/css?family=Ubuntu:500' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/calculator.css">
+	<script src="js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+
+	<style>
+    	.login 
+    	{
+        	width: 80%;
+        	margin: 0 auto;
+        	padding: 250px;
+    	}
+    	.earnTable
+    	{
+  			margin-left: auto;
+  			margin-right: auto;
+		}
+	</style>
+
+	<script>
+		function calculate()
+		{
+			var userHashrate = document.getElementById("hashrate");
+			var netDiff = document.getElementById("diff");
+
+			var gatePerDay = Math.round((userHashrate.value * 50 * 86400 * 1000000 / (netDiff.value * 4294967296)) * 100 + Number.EPSILON) / 100;
+
+			document.getElementById("_gatePerDay").innerHTML = gatePerDay;
+			document.getElementById("_gatePerWeek").innerHTML = Math.round(gatePerDay * 7 * 100 + Number.EPSILON) / 100;
+			document.getElementById("_gatePerMonth").innerHTML = Math.round(gatePerDay * 30 * 100 + Number.EPSILON) / 100;
+		}
+	</script>
+
+</head>
+<body>
+	<div class="login">
+  		<div class="login-header">
+    		<h5>Gatecoin Mining Calculator</h5>
+  		</div>
+  		<div class="login-form">
+    		<h3>Hashrate (MH/s):</h3>
+    		<input type="text" placeholder="300" id="hashrate" /><br>
+
+    		<h3>Net Difficulty:</h3>
+    		<input type="text" placeholder="79273" id="diff" /><br>
+
+    		<input type="button" value="Calculate" onclick="calculate();"/>
+    		<br> <br> <br> <br>
+
+    		<table class="earnTable" border=1 cellpadding="3">
+				<tbody>
+					<tr>
+						<th>Per Day</th>
+						<th>Per Week</th>		
+						<th>Per Month</th>
+					</tr>
+					<tr>
+						<td><span id="_gatePerDay"></span></td>
+						<td><span id="_gatePerWeek"></span></td>		
+						<td><span id="_gatePerMonth"></span></td>
+					</tr>
+				</tbody>
+			</table>
+  		</div>
+	</div>
+</body>
+</html>
